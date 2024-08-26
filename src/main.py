@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from src.database import engine
 from src.models import BaseModel
 
-# importamos los routers desde nuestros modulos
+# Importamos los routers desde nuestros módulos
 from src.example.router import router as example_router
 
 load_dotenv()
@@ -23,5 +23,10 @@ async def db_creation_lifespan(app: FastAPI):
 
 app = FastAPI(root_path=ROOT_PATH, lifespan=db_creation_lifespan)
 
-# asociamos los routers a nuestra app
+# Asociamos los routers a nuestra app
 app.include_router(example_router)
+
+# Definimos una ruta para la raíz
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to my FastAPI application!"}
